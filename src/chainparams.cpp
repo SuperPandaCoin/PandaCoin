@@ -48,14 +48,14 @@ public:
         genesis.nVersion = 1;
         genesis.nTime    = 1488538538;
         genesis.nBits    = 0x1e0fffff;
-        genesis.nNonce   = 397343;
+        genesis.nNonce   = 00;
 
         //// debug print
         hashGenesisBlock = genesis.GetHash();
-        // while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
-        //    if (++genesis.nNonce==0) break;
-        //    hashGenesisBlock = genesis.GetHash();
-        // }
+        while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
+           if (++genesis.nNonce==0) break;
+           hashGenesisBlock = genesis.GetHash();
+        }
 
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
@@ -63,8 +63,8 @@ public:
         genesis.print();
 
 
-        assert(hashGenesisBlock == uint256("0x0000012e6c0c6f84c9ba2f973a2800b1140bc9e913f91e7aac2746481b5362f6"));
-        assert(genesis.hashMerkleRoot == uint256("0x36f2c400f0ae61372e971fd44cc4be1fae4d7e9e10a0f5f36c4374424a7cd15a"));
+        assert(hashGenesisBlock == uint256("0x"));
+        assert(genesis.hashMerkleRoot == uint256("0x"));
 
         vSeeds.push_back(CDNSSeedData("pandacoin.net", "seednode.pandacoin.net"));
 
