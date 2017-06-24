@@ -52,10 +52,10 @@ public:
 
         //// debug print
         hashGenesisBlock = genesis.GetHash();
-        // while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
-        //    if (++genesis.nNonce==0) break;
-        //    hashGenesisBlock = genesis.GetHash();
-        // }
+        while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
+           if (++genesis.nNonce==0) break;
+           hashGenesisBlock = genesis.GetHash();
+        }
 
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
