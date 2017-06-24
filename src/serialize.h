@@ -908,7 +908,7 @@ public:
             vch.insert(it, first, last);
     }
 
-     void insert(iterator it, std::vector<char>::const_iterator first, std::vector<char>::const_iterator last)
+    void insert(iterator it, std::vector<char>::const_iterator first, std::vector<char>::const_iterator last)
     {
         assert(last - first >= 0);
         if (it == vch.begin() + nReadPos && (unsigned int)(last - first) <= nReadPos)

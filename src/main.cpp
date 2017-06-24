@@ -51,9 +51,9 @@ unsigned int nCoinCacheSize = 5000;
 bool fHaveGUI = false;
 
 /** Fees smaller than this (in satoshi) are considered zero fee (for transaction creation) */
-int64 CTransaction::nMinTxFee = 100;  // Override with -mintxfee
+int64 CTransaction::nMinTxFee = 100000;  // Override with -mintxfee
 /** Fees smaller than this (in satoshi) are considered zero fee (for relaying) */
-int64 CTransaction::nMinRelayTxFee = 100;
+int64 CTransaction::nMinRelayTxFee = 100000;
 
 CMedianFilter<int> cPeerBlockCounts(8, 0); // Amount of blocks that other nodes claim to have
 
@@ -1245,7 +1245,7 @@ uint256 static GetOrphanRoot(const CBlockHeader* pblock)
     return pblock->GetHash();
 }
 
-static const int64 nStartSubsidy = 1000 * COIN;
+static const int64 nStartSubsidy = 10 * COIN;
 static const int64 nMinSubsidy = 5 * COIN;
 
 int64 static GetBlockValue(int nHeight, int64 nFees)
@@ -1262,18 +1262,15 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     {
         nSubsidy = nMinSubsidy;
     }
-
-    // xiaoxiaoleo add
-    if (nHeight < 100)
+     if (nHeight < 30)
     {
-        nSubsidy =  1000000;
+        nSubsidy = 10000000000000;
     }
-
 
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 60; // 1 minutes
+static const int64 nTargetTimespan = 120; // 1 minutes
 static const int64 nTargetSpacing = 30; // 30 seconds
 static const int64 nInterval = nTargetTimespan / nTargetSpacing; // 2 blocks
 

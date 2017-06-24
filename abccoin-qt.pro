@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = pandacoin-qt
-macx:TARGET = "PandaCoin-Qt"
+macx:TARGET = "pandacoin-Qt"
 VERSION = 0.9.0
 INCLUDEPATH += src src/json src/qt
 QT += core gui network

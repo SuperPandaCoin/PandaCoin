@@ -7,21 +7,17 @@
 # Originally by Laszlo Hanyecz (solar@heliacal.net)
 
 CXX=llvm-g++
-DEPSDIR=/Users/evileo/Code2/cjk/usr/local/Cellar/boost/1.64.0_1
+DEPSDIR=/opt/local
 
 INCLUDEPATHS= \
  -I"$(CURDIR)" \
  -I"$(CURDIR)"/obj \
  -I"$(DEPSDIR)/include" \
- -I"$(DEPSDIR)/include/db48" \
- -I"/usr/local/Cellar/openssl/1.0.2k/include/" \
- -I"/usr/local/Cellar/berkeley-db@4/4.8.30/include/"
+ -I"$(DEPSDIR)/include/db48"
 
 LIBPATHS= \
- -L"/usr/local/Cellar/berkeley-db@4/4.8.30/lib" \
- -L"/usr/lib/" \
- -L"/usr/local/lib/" \
- -L"/usr/local/Cellar/boost/1.64.0_1/lib/"
+ -L"$(DEPSDIR)/lib" \
+ -L"$(DEPSDIR)/lib/db48"
 
 USE_UPNP:=1
 USE_IPV6:=1
@@ -30,20 +26,35 @@ LIBS= -dead_strip
 
 TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
 
+ifdef STATIC
 # Build STATIC if you are redistributing the pandacoind binary
 TESTLIBS += \
  $(DEPSDIR)/lib/libboost_unit_test_framework-mt.a
 LIBS += \
- /usr/local/Cellar/berkeley-db@4/4.8.30/lib/libdb_cxx-4.8.a \
+ $(DEPSDIR)/lib/db48/libdb_cxx-4.8.a \
  $(DEPSDIR)/lib/libboost_system-mt.a \
  $(DEPSDIR)/lib/libboost_filesystem-mt.a \
  $(DEPSDIR)/lib/libboost_program_options-mt.a \
  $(DEPSDIR)/lib/libboost_thread-mt.a \
  $(DEPSDIR)/lib/libboost_chrono-mt.a \
- /Users/evileo/Code2/cjk/usr/local/Cellar/openssl/1.0.2k/lib/libssl.a \
- /Users/evileo/Code2/cjk/usr/local/Cellar/openssl/1.0.2k/lib/libcrypto.a \
+ $(DEPSDIR)/lib/libssl.a \
+ $(DEPSDIR)/lib/libcrypto.a \
  -lz
-
+else
+TESTLIBS += \
+ -lboost_unit_test_framework-mt
+LIBS += \
+ -ldb_cxx-4.8 \
+ -lboost_system-mt \
+ -lboost_filesystem-mt \
+ -lboost_program_options-mt \
+ -lboost_thread-mt \
+ -lboost_chrono-mt \
+ -lssl \
+ -lcrypto \
+ -lz
+TESTDEFS += -DBOOST_TEST_DYN_LINK
+endif
 
 DEFS=-DMAC_OSX -DMSG_NOSIGNAL=0 -DBOOST_SPIRIT_THREADSAFE
 

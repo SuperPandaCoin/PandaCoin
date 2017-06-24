@@ -23,14 +23,14 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         // The message start string is designed to be unlikely to occur in normal data.
-        pchMessageStart[0] = 0x12;
-        pchMessageStart[1] = 0x88;
-        pchMessageStart[2] = 0xc2;
-        pchMessageStart[3] = 0x13;
-        nDefaultPort = 5001;
-        nRPCPort = 5002;
+        pchMessageStart[0] = 0xc4;
+        pchMessageStart[1] = 0xc4;
+        pchMessageStart[2] = 0xc4;
+        pchMessageStart[3] = 0xc4;
+        nDefaultPort = 9001;
+        nRPCPort = 9002;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 20);
-        nSubsidyHalvingInterval = 9999;
+        nSubsidyHalvingInterval = 100000;
 
         // Build the genesis block. Note that the output of the genesis coinbase cannot
         // be spent as it did not originally exist in the database.
@@ -46,16 +46,16 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime    = 1483424105;
+        genesis.nTime    = 1488538538;
         genesis.nBits    = 0x1e0fffff;
-        genesis.nNonce   = 0;
+        genesis.nNonce   = 397343;
 
         //// debug print
         hashGenesisBlock = genesis.GetHash();
-        //while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
+        // while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
         //    if (++genesis.nNonce==0) break;
         //    hashGenesisBlock = genesis.GetHash();
-        //}
+        // }
 
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
@@ -63,13 +63,13 @@ public:
         genesis.print();
 
 
-        assert(hashGenesisBlock == uint256("0x10853f1d7a11eb7bd5471840e5520b868bb2497f5366a5f5a570e5d284e9fc5b"));
+        assert(hashGenesisBlock == uint256("0x0000012e6c0c6f84c9ba2f973a2800b1140bc9e913f91e7aac2746481b5362f6"));
         assert(genesis.hashMerkleRoot == uint256("0x36f2c400f0ae61372e971fd44cc4be1fae4d7e9e10a0f5f36c4374424a7cd15a"));
 
-        vSeeds.push_back(CDNSSeedData("seednode.pandacoin.net", "pandacoin.net"));
+        vSeeds.push_back(CDNSSeedData("pandacoin.net", "seednode.pandacoin.net"));
 
 
-        base58Prefixes[PUBKEY_ADDRESS] = 0;
+        base58Prefixes[PUBKEY_ADDRESS] = 1;
         base58Prefixes[SCRIPT_ADDRESS] = 30;
         base58Prefixes[SECRET_KEY] = 224;
 
